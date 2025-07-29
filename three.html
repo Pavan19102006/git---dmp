@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -5%;
+            background: #fff;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+            }
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        form {
+            background: rgba(30, 30, 30, 0.85);
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #eee;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="password"],
+        input[type="date"],
+        input[type="file"],
+        input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: #222;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: #00aaff;
+            box-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+            outline: none;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .inline-label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+            color: #ccc;
+        }
+        
+        .radio-group label, .checkbox-group label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="snow"></div>
+
+<form action="/submit" method="post">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" maxlength="20">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone no</label>
+        <input type="tel" id="phone" name="phone">
+    </div>
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" min="1" max="100">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div class="form-group">
+        <label for="dob">BirthDate</label>
+        <input type="date" id="dob" name="dob">
+    </div>
+    <div class="form-group">
+        <label for="resume">Upload your file</label>
+        <input type="file" id="resume" name="resume">
+    </div>
+    <div class="form-group">
+        <label for="color">Choose your favourite color</label>
+        <input type="color" id="color" name="color">
+    </div>
+    <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male" class="inline-label">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female" class="inline-label">Female</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Languages known</label>
+        <div class="checkbox-group">
+            <input type="checkbox" id="english" name="languages" value="English">
+            <label for="english" class="inline-label">English</label>
+            <input type="checkbox" id="telugu" name="languages" value="Telugu">
+            <label for="telugu" class="inline-label">Telugu</label>
+            <input type="checkbox" id="hindi" name="languages" value="Hindi">
+            <label for="hindi" class="inline-label">Hindi</label>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+// ... existing code ...
+
+        const starsContainer = document.querySelector('.stars');
+        const snowContainer = document.querySelector('.snow');
+        const numberOfStars = 100;
+        const numberOfSnowflakes = 150;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = `${Math.random() * 2 + 1}px`;
+            star.style.height = star.style.width;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            starsContainer.appendChild(star);
+        }
+
+        for (let i = 0; i < numberOfSnowflakes; i++) {
+            let snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            let size = Math.random() * 4 + 1;
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${Math.random() * 100}%`;
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            snowflake.style.animationDelay = `${Math.random() * 5}s`;
+            snowflake.style.opacity = Math.random();
+            snowContainer.appendChild(snowflake);
+        }
+    });
+</script>
+
+</body>
+</html>
